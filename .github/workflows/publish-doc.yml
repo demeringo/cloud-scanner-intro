@@ -48,6 +48,8 @@ jobs:
           rm -rf *
           # You may need to change this path is using multiple outputs
           # mv ./book/html/* .
+          pwd
+          ls
           mv ./book/* .
           git add .
           git commit -m "Deploy $GITHUB_SHA to gh-pages"
