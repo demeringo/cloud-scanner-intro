@@ -1,0 +1,6 @@
+[book]
+authors = ["DE MERINGO Olivier"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Cloud scanner introduction"
