@@ -32,6 +32,10 @@ jobs:
         run: mdbook-admonish --version
       - name: Show katex version
         run: mdbook-katex --version
+      - name: path
+        run: pwd
+      - name: ls
+        run: ls
       - name: Deploy GitHub Pages
         run: |
           # This assumes your book is in the root of your repository.
@@ -47,10 +51,8 @@ jobs:
           git update-ref -d refs/heads/gh-pages
           rm -rf *
           # You may need to change this path is using multiple outputs
-          # mv ./book/html/* .
-          pwd
-          ls
-          mv ./book/* .
+          # mv ../book/html/* .
+          mv ../book/* .
           git add .
           git commit -m "Deploy $GITHUB_SHA to gh-pages"
           git push --force --set-upstream origin gh-pages
