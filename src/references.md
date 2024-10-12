@@ -7,11 +7,17 @@
 
 ## Repositories / tools
 
-- A demo front end for Boavizta API [Datavizta](https://dataviz.boavizta.org/cloudimpact)
-- [GitHub - Boavizta/boaviztapi: 🛠 Giving access to BOAVIZTA reference data and methodologies trough a RESTful API](https://github.com/Boavizta/boaviztapi)
+- A front end that you can use to get a fist view of Boavizta API [Datavizta](https://dataviz.boavizta.org/cloudimpact)
+- The Boavizta data [GitHub - Boavizta/boaviztapi: 🛠 Giving access to BOAVIZTA reference data and methodologies trough a RESTful API](https://github.com/Boavizta/boaviztapi)
 - [GitHub - Boavizta/cloud-scanner](https://github.com/Boavizta/cloud-scanner/)
 - [Cloud-scanner documentation](https://boavizta.github.io/cloud-scanner/)
 
 ## Methodology
 
-- Paper presented at HotCarbon San Diego: [BoaviztAPI: a bottom-up model to assess the environmental impacts of cloud services](https://hal-lara.archives-ouvertes.fr/IMT-BS/hal-04621947v1)
+- The paper presented at HotCarbon San Diego: [BoaviztAPI: a bottom-up model to assess the environmental impacts of cloud services](https://hal-lara.archives-ouvertes.fr/IMT-BS/hal-04621947v1)
+
+## Other projects that we find interesting
+
+- [Cloud Carbon Footprint - An open source tool to measure and analyze cloud carbon emissions](https://www.cloudcarbonfootprint.org/)
+- [Carbonifer.io](https://carbonifer.io/)
+- [OpenCost — open source cost monitoring for cloud native environments | OpenCost — open source cost monitoring for cloud native environments](https://www.opencost.io/)

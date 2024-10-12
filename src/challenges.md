@@ -1,18 +1,20 @@
 # Challenges with cloud providers
 
-## Lack of transparency
+We face several challenges with the default environmental reporting of public cloud providers.
+
+## A lack of transparency
 
 - Questionnable methodology (not transparent / not documented)
 - Scope (1 and 2 only ?)
 - Decried **Market-based** approach 💣
 
-## Granularity problem
+## A granularity problem
 
 - in time (3 months delay)
 - in service (hard to break down by app or micro service)
 
-## Integration
+## No easy integration
 
-- not easy to reuse a data
+- difficult to reuse the data
 
 - cf AWS dashboard.
