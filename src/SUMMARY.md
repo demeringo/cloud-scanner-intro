@@ -1,6 +1,6 @@
 # Summary
 
-- [Introduction](intro)
+- [Introduction](intro.md)
 - [What we need](What_we_need.md)
 - [Challenges](challenges.md)
 - [Our approach](cs-approach.md)
