@@ -18,6 +18,10 @@
 
 ## Other projects that we find interesting
 
+Some of these projects directly contributed to our work or are inspirations for the future development of cloud-scanner. Thank you !
+
+- The seminal work of Benjamin Davy: [Building an AWS EC2 Carbon Emissions Dataset](https://medium.com/teads-engineering/building-an-aws-ec2-carbon-emissions-dataset-3f0fd76c98ac)
+- [Carbon footprint estimator for AWS instances - Teads](https://engineering.teads.com/sustainability/carbon-footprint-estimator-for-aws-instances/)
 - [Cloud Carbon Footprint - An open source tool to measure and analyze cloud carbon emissions](https://www.cloudcarbonfootprint.org/)
-- [Carbonifer.io](https://carbonifer.io/)
+- Carbonifier.io to help estimate the impacts using Infra as code, prior deployment [Carbonifer.io](https://carbonifer.io/).
 - [OpenCost — open source cost monitoring for cloud native environments | OpenCost — open source cost monitoring for cloud native environments](https://www.opencost.io/)

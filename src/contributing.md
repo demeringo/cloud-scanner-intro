@@ -8,6 +8,6 @@ It is also only a first step towards a better use of the resources.
 
 Try cloud scanner, open issues on Github or join discussions on Github or Boavizta Mattermost channel if you have questions of would like to improve it.
 
-## Thank you!
+## Thank you !
 
-Any question ?
+> Any question ?
