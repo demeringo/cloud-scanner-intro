@@ -14,6 +14,7 @@
 
 # References
 
+- [Q&A](cloud-scanner-intro/faq)
 - [References](references.md)
 
 -----------
