@@ -7,6 +7,11 @@
 - [Challenges](challenges.md)
 - [Our approach](cs-approach.md)
 
+# Key features
+
+- [Real time](features-1.md)
+- [Integration and simulation](features-2.md)
+
 # Future
 
 - [Limits](limits.md)

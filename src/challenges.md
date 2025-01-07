@@ -15,6 +15,5 @@ We face several challenges with the default environmental reporting of public cl
 
 ## No easy integration
 
-- difficult to reuse the data
-
-- cf AWS dashboard.
+- difficult to reuse data
+- e.g. AWS dashboard
