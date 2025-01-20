@@ -1,0 +1,378 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cloud scanner objectives and roadmap</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Cloud scanner objectives and roadmap</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>This short presentation aims at explaining the <em>why</em> behind the creation of <a href="https://github.com/Boavizta/cloud-scanner">Boavizta cloud-scanner</a>.</p>
+<p>This project started out of a Boavizta hackathon, initially as a way to demonstrate that we could make good use of Boavizta Open data and Open methodology to help assess environmental impacts of public cloud usage.</p>
+<p>Cloud scanner evolved as a open source project, part of the Boavizta ecosystem. It offers a way to address some of the challenges we identified with de default environmental reporting of most public cloud providers.</p>
+<p>We will first explain why we are not satisfied with the status-quo, then explain the Boavizta/cloud-scanner approach.</p>
+<p>We will also highlight the limits of our approach and the roadmap of future cloud-scanner.</p>
+<p>This presentation addresses the <em>why</em>. But if your are more interested by the <em>how</em> feel free to jump directly into <a href="https://boavizta.github.io/cloud-scanner/">cloud-scanner documentation</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-we-need"><a class="header" href="#what-we-need">What we need</a></h1>
+<p>To assess <em>environmental impacts</em> of <em>public cloud</em> resources, we need:</p>
+<h2 id="a-global-view-of-the-environmental-cost"><a class="header" href="#a-global-view-of-the-environmental-cost">A global view of the environmental cost</a></h2>
+<ul>
+<li>Aggregated impact data</li>
+<li>Use phase + manufacture phase</li>
+<li>Multiple criteria (GWP, ADP...)</li>
+</ul>
+<h2 id="real-time-monitoring"><a class="header" href="#real-time-monitoring">Real time monitoring</a></h2>
+<ul>
+<li><em>greenops</em> approach</li>
+<li>notification / alerting</li>
+<li>trigger other processes</li>
+</ul>
+<h2 id="challenge-alternative-architectures"><a class="header" href="#challenge-alternative-architectures">Challenge alternative architectures</a></h2>
+<ul>
+<li>Need to simulate variant of cloud architectures</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="challenges-with-cloud-providers"><a class="header" href="#challenges-with-cloud-providers">Challenges with cloud providers</a></h1>
+<p>We face several challenges with the default environmental reporting of public cloud providers.</p>
+<h2 id="a-lack-of-transparency"><a class="header" href="#a-lack-of-transparency">A lack of transparency</a></h2>
+<ul>
+<li>Questionnable methodology (not transparent / not documented)</li>
+<li>Scope (1 and 2 only ?)</li>
+<li>Decried <strong>Market-based</strong> approach 💣</li>
+</ul>
+<h2 id="a-granularity-problem"><a class="header" href="#a-granularity-problem">A granularity problem</a></h2>
+<ul>
+<li>in time (3 months delay)</li>
+<li>in service (hard to break down by app or micro service)</li>
+</ul>
+<h2 id="no-easy-integration"><a class="header" href="#no-easy-integration">No easy integration</a></h2>
+<ul>
+<li>difficult to reuse data</li>
+<li>e.g. AWS dashboard</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="our-approach"><a class="header" href="#our-approach">Our approach</a></h1>
+<h2 id="automated-inventory"><a class="header" href="#automated-inventory">Automated inventory</a></h2>
+<ul>
+<li>Scan of the cloud account</li>
+<li>Easy to deploy</li>
+</ul>
+<h2 id="modeling"><a class="header" href="#modeling">Modeling</a></h2>
+<p>Taking into account the hardware:</p>
+<ul>
+<li>CPU type, RAM size and CPU load</li>
+<li>Storage size</li>
+<li>Region of consumption (electrical mix)</li>
+<li>PUE</li>
+</ul>
+<h2 id="transparent"><a class="header" href="#transparent">Transparent</a></h2>
+<ul>
+<li>Open and public methodology (peer reviewed)</li>
+<li>Open data set of impacts</li>
+<li>Boavizta cloud scanner is open source</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="key-features"><a class="header" href="#key-features">Key features</a></h1>
+<h2 id="real-time"><a class="header" href="#real-time">Real time</a></h2>
+<ul>
+<li>5 minutes sampling period</li>
+<li>Dashboard</li>
+<li>Historisation</li>
+</ul>
+<h2 id="precise-attribution"><a class="header" href="#precise-attribution">Precise attribution</a></h2>
+<ul>
+<li>Filter / aggregate by type of resource, region, name (or any other tag)</li>
+<li>Attribute to specific service in the account</li>
+</ul>
+<p><img src="images/cloud-scanner-dashboard-clear.png" alt="Dashboard overview" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="key-features-1"><a class="header" href="#key-features-1">Key features</a></h1>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<ul>
+<li>Produces standard <em>metrics</em> (OpenMetrics / Prometheus)</li>
+<li>Can be used as REST API or CLI</li>
+<li>Exporting capabilities (files)
+<ul>
+<li>json inventory</li>
+<li>json impacts</li>
+</ul>
+</li>
+</ul>
+<h2 id="secure"><a class="header" href="#secure">Secure</a></h2>
+<ul>
+<li>Deployed <em>inside</em> the cloud account</li>
+<li>Using cloud policies to filter resources</li>
+</ul>
+<h2 id="simulation"><a class="header" href="#simulation">Simulation</a></h2>
+<ul>
+<li>Capacity to inject a cloud inventory</li>
+<li>=&gt; Simulate impacts of future infra before deployment</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="limits"><a class="header" href="#limits">Limits</a></h1>
+<h2 id="does-not-cover-all-aspects"><a class="header" href="#does-not-cover-all-aspects">Does not cover all aspects</a></h2>
+<p><em>Instances</em> and <em>block storage</em> only</p>
+<ul>
+<li>Missing object storage (S3), serverless (lambda) or DB as a service</li>
+<li>Not the entire scope (control plan, network and cloud provider infra not accounted)</li>
+</ul>
+<p>=&gt; underestimate !</p>
+<p><img src="images/cloud-scanner-scope.excalidraw.png" alt="Scope of cloud scanner" /></p>
+<h2 id="lack-fine-grain-attribution-for-kubernetes"><a class="header" href="#lack-fine-grain-attribution-for-kubernetes">Lack fine grain attribution for Kubernetes</a></h2>
+<p>Does not offer fine grain attribution in case of container orchestration (i.e. does not go down to the container or micro service level).</p>
+<ul>
+<li>See work of SBS</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="roadmap-and-future-work"><a class="header" href="#roadmap-and-future-work">Roadmap and future work</a></h1>
+<h2 id="cover-more-services"><a class="header" href="#cover-more-services">Cover more services</a></h2>
+<p>A first objective is to increase the scope of the services.</p>
+<ul>
+<li>Object storage / S3</li>
+<li>FAAS / Serverless (like AWS lambda or Azure functions)</li>
+<li>Additional managed services (like DB as a service)</li>
+<li>Impacts of GPUs, which is key to assess AI/ML workload</li>
+</ul>
+<p>For each new service, this will likely be a 2 step process:</p>
+<ol>
+<li>Define a common model (identify key drivers of the impacts) and implement this model in Boavizta API.</li>
+<li>Automate collection of related data in cloud scanner.</li>
+</ol>
+<h2 id="expand-to-other-cloud-providers"><a class="header" href="#expand-to-other-cloud-providers">Expand to other cloud providers</a></h2>
+<ul>
+<li>Azure (work in progress)</li>
+<li>Scaleway (work in progress)</li>
+<li>OVH</li>
+<li>...</li>
+</ul>
+<h2 id="provide-recommendations"><a class="header" href="#provide-recommendations">Provide recommendations</a></h2>
+<p>Estimating environmental impacts only makes sense if we can use it to avoid unnecessary impacts.</p>
+<p>In the future cloud-scanner may provide insights on what is wasted and where to apply efforts of reduction.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently asked questions</a></h1>
+<h2 id="isnt-the-reporting-offered-by-cloud-provider-sufficient-"><a class="header" href="#isnt-the-reporting-offered-by-cloud-provider-sufficient-">Isn't the reporting offered by cloud provider sufficient ?</a></h2>
+<p>For several reasons (scope, transparency, granularity), we consider that today's reporting of major public cloud provider does not fully answers to our needs. See <a href="challenges.html">Challenges</a> and <a href="What_we_need.html">What we need</a>.</p>
+<p>A comparison of what is reported by default is addressed with more detail in this Boavizta article:  <a href="https://boavizta.org/en/blog/calculettes-carbone-clouds-providers">Understanding the results of cloud providers' carbon calculators | Boavizta</a>.</p>
+<p>You may also refer to the academic paper that describes the Boavizta cloud methodology: <a href="https://hal-lara.archives-ouvertes.fr/IMT-BS/hal-04621947v1">BoaviztAPI: a bottom-up model to assess the environmental impacts of cloud services</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="references"><a class="header" href="#references">References</a></h1>
+<h2 id="boavizta"><a class="header" href="#boavizta">Boavizta</a></h2>
+<ul>
+<li><a href="https://boavizta.org/en">Digital environmental impact evaluation for organizations</a></li>
+<li><a href="https://boavizta.org/en/blog/calculettes-carbone-clouds-providers">Understanding the results of cloud providers' carbon calculators | Boavizta</a></li>
+</ul>
+<h2 id="repositories--tools"><a class="header" href="#repositories--tools">Repositories / tools</a></h2>
+<ul>
+<li>A front end that you can use to get a fist view of Boavizta API <a href="https://dataviz.boavizta.org/cloudimpact">Datavizta</a></li>
+<li>The Boavizta data <a href="https://github.com/Boavizta/boaviztapi">GitHub - Boavizta/boaviztapi: 🛠 Giving access to BOAVIZTA reference data and methodologies trough a RESTful API</a></li>
+<li><a href="https://github.com/Boavizta/cloud-scanner/">GitHub - Boavizta/cloud-scanner</a></li>
+<li><a href="https://boavizta.github.io/cloud-scanner/">Cloud-scanner documentation</a></li>
+</ul>
+<h2 id="methodology"><a class="header" href="#methodology">Methodology</a></h2>
+<ul>
+<li>The paper presented at HotCarbon San Diego: <a href="https://hal-lara.archives-ouvertes.fr/IMT-BS/hal-04621947v1">BoaviztAPI: a bottom-up model to assess the environmental impacts of cloud services</a></li>
+</ul>
+<h2 id="other-projects-that-we-find-interesting"><a class="header" href="#other-projects-that-we-find-interesting">Other projects that we find interesting</a></h2>
+<p>Some of these projects directly contributed to our work or are inspirations for the future development of cloud-scanner. Thank you !</p>
+<ul>
+<li>The seminal work of Benjamin Davy: <a href="https://medium.com/teads-engineering/building-an-aws-ec2-carbon-emissions-dataset-3f0fd76c98ac">Building an AWS EC2 Carbon Emissions Dataset</a></li>
+<li><a href="https://engineering.teads.com/sustainability/carbon-footprint-estimator-for-aws-instances/">Carbon footprint estimator for AWS instances - Teads</a></li>
+<li><a href="https://www.cloudcarbonfootprint.org/">Cloud Carbon Footprint - An open source tool to measure and analyze cloud carbon emissions</a></li>
+<li>Carbonifier.io to help estimate the impacts using Infra as code, prior deployment <a href="https://carbonifer.io/">Carbonifer.io</a>.</li>
+<li><a href="https://www.opencost.io/">OpenCost — open source cost monitoring for cloud native environments | OpenCost — open source cost monitoring for cloud native environments</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
+<p>Evaluating the environmental impacts of public cloud resources is a work in progress. And we know that this this project is only a first step towards a better use of the resources.</p>
+<p>We are convinced that this long term goal involves a multidisciplinary approach and open discussions. <a href="https://boavizta.org/">Boavizta</a> projects are open source, and only possible because we share our struggles or progress and ideas.</p>
+<h2 id="reach-out"><a class="header" href="#reach-out">Reach out</a></h2>
+<p>We are eager hearing from you !</p>
+<p><a href="https://boavizta.github.io/cloud-scanner/tutorials/quickstart-dashboard-docker.html">Try cloud scanner</a>, and if you have any question or feedback, please <a href="https://github.com/Boavizta/cloud-scanner/issues">open a issue</a> or a <a href="https://github.com/Boavizta/cloud-scanner/discussions">discussion</a> on Github, or just reach out on <a href="https://chat.boavizta.org/public-boavizta">Boavizta public chat</a>.</p>
+<p>And if you like this project, please star it ⭐ on <a href="https://github.com/Boavizta/cloud-scanner">Github</a> or add your name to the <a href="https://github.com/Boavizta/cloud-scanner/blob/main/ADOPTERS.md">adopters file</a> 💙.</p>
+<h2 id="thank-you-"><a class="header" href="#thank-you-">Thank you !</a></h2>
+<blockquote>
+<p>Any question ?</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
